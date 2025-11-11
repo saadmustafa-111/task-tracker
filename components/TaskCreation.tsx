@@ -32,7 +32,6 @@ const TaskCreation = ({ projectId, onTaskCreated }: TaskCreationProps) => {
       setTaskStatus('todo');
       onTaskCreated();
     } catch (error) {
-      console.error('Error creating task:', error);
     } finally {
       setIsSubmitting(false);
     }

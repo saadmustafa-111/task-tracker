@@ -132,7 +132,6 @@ const ProjectList = () => {
       alert('Notification set successfully! You will receive an email 3 days before the deadline.');
       setNotificationModal(null);
     } catch (error) {
-      console.error('Error setting notification:', error);
       alert('Failed to set notification. Please try again.');
     } finally {
       setIsSubmittingNotification(false);

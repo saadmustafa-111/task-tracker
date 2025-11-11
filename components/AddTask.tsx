@@ -1,27 +1,25 @@
-// Task creation component (e.g., CreateTask.tsx)
+
 import { useState } from 'react';
-import supabase from '../lib/supabase';  // Import your Supabase client
+import supabase from '../lib/supabase';
 
 const CreateTask = ({ projectId }: { projectId: number }) => {
   const [taskName, setTaskName] = useState('');
-  const [taskStatus, setTaskStatus] = useState('todo'); // Default status is 'todo'
+  const [taskStatus, setTaskStatus] = useState('todo');
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const { data, error } = await supabase
       .from('tasks')
       .insert([
         {
-          name: taskName,          
-          status: taskStatus,      
-          project_id: projectId, 
+          name: taskName,
+          status: taskStatus,
+          project_id: projectId,
         },
       ]);
 
     if (error) {
-      console.error('Error creating task:', error);
     } else {
-      console.log('Task created:', data);
-      setTaskName('');  // Reset task name
+      setTaskName('');
     }
   };
 

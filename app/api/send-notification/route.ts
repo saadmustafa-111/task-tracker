@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
                 </div>
                 
                 <p>Make sure you're on track to complete all tasks before the deadline!</p>
-                <p>Stay organized and finish strong! 💪</p>
+                <p>Stay organized and finish strong!</p>
               </div>
               <div class="footer">
                 <p>This notification was set up through Task Tracker</p>
@@ -113,13 +113,11 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-      console.error('Resend error:', error);
       return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
     }
 
     return NextResponse.json({ success: true, data }, { status: 200 });
   } catch (error) {
-    console.error('Error sending notification:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
