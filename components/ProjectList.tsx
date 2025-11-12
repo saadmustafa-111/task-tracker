@@ -40,6 +40,9 @@ const ProjectList = () => {
 
     if (!error && data) {
       setProjects(data);
+      data.forEach((project) => {
+        fetchTasks(project.id);
+      });
     }
   };
 
@@ -50,7 +53,9 @@ const ProjectList = () => {
       .eq('project_id', projectId)
       .order('id', { ascending: true });
 
-    if (!error && data) {
+    if (error) {
+      setTasks((prev) => ({ ...prev, [projectId]: [] }));
+    } else if (data) {
       setTasks((prev) => ({ ...prev, [projectId]: data }));
     }
   };
@@ -144,15 +149,17 @@ const ProjectList = () => {
       newExpanded.delete(projectId);
     } else {
       newExpanded.add(projectId);
-      if (!tasks[projectId]) {
-        await fetchTasks(projectId);
-      }
+      await fetchTasks(projectId);
     }
     setExpandedProjects(newExpanded);
   };
 
   useEffect(() => {
-    fetchProjects().finally(() => setLoading(false));
+    const loadData = async () => {
+      await fetchProjects();
+      setLoading(false);
+    };
+    loadData();
   }, []);
 
   const getStatusColor = (status: string) => {
